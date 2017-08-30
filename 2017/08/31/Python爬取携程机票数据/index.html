@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="涉及内容： 1、request模拟请求 2、json解析 目标： 爬取某航线上所有航班价格信息 核心思想： 通过页面上请求数据的API接口，模拟前端请求，获取json数据并将其解析。 Step0. 寻找一个合适的方法进入携程机票的搜索界面，随便搜索一条航线，跳转后你会发现网址一栏变成了：http://flights.ctrip.com/booking/TAO-SJW-day-1.html?DDa">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬取携程机票数据">
+<meta property="og:url" content="http://www.jacquelinelee.live/2017/08/31/Python爬取携程机票数据/index.html">
+<meta property="og:site_name" content="一笑雨噤声">
+<meta property="og:description" content="涉及内容： 1、request模拟请求 2、json解析 目标： 爬取某航线上所有航班价格信息 核心思想： 通过页面上请求数据的API接口，模拟前端请求，获取json数据并将其解析。 Step0. 寻找一个合适的方法进入携程机票的搜索界面，随便搜索一条航线，跳转后你会发现网址一栏变成了：http://flights.ctrip.com/booking/TAO-SJW-day-1.html?DDa">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-bf9d44939c34b047.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-d30df58bac9e9845.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-ae359dd92bc390b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-5c1a07ecf5eb04da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-7d3764957dcabc95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-e527f0dae85058a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-2d22fd9ff5273fa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-ff0f0957ee6079f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-08-30T17:14:56.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python爬取携程机票数据">
+<meta name="twitter:description" content="涉及内容： 1、request模拟请求 2、json解析 目标： 爬取某航线上所有航班价格信息 核心思想： 通过页面上请求数据的API接口，模拟前端请求，获取json数据并将其解析。 Step0. 寻找一个合适的方法进入携程机票的搜索界面，随便搜索一条航线，跳转后你会发现网址一栏变成了：http://flights.ctrip.com/booking/TAO-SJW-day-1.html?DDa">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3851306-bf9d44939c34b047.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.jacquelinelee.live/2017/08/31/Python爬取携程机票数据/"/>
+
+
+
+
+
+  <title>Python爬取携程机票数据 | 一笑雨噤声</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一笑雨噤声</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">正在撒丫子跑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jacquelinelee.live/2017/08/31/Python爬取携程机票数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姬非">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一笑雨噤声">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python爬取携程机票数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-31T01:14:36+08:00">
+                2017-08-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://upload-images.jianshu.io/upload_images/3851306-bf9d44939c34b047.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="携程机票搜索页面"></p>
+<p><strong>涉及内容：</strong></p>
+<p>1、request模拟请求</p>
+<p>2、json解析</p>
+<p><strong>目标：</strong></p>
+<p>爬取某航线上所有航班价格信息</p>
+<p><strong>核心思想：</strong></p>
+<p>通过页面上请求数据的API接口，模拟前端请求，获取json数据并将其解析。</p>
+<h2 id="Step0-寻找一个合适的方法"><a href="#Step0-寻找一个合适的方法" class="headerlink" title="Step0. 寻找一个合适的方法"></a>Step0. 寻找一个合适的方法</h2><p>进入携程机票的搜索界面，随便搜索一条航线，跳转后你会发现网址一栏变成了：<code>http://flights.ctrip.com/booking/TAO-SJW-day-1.html?DDate1=2017-10-17</code></p>
+<p>很明显，你搜索的航线是TAO青岛到SJW石家庄，起飞时间2017-10-17，整理一下url的规则就是：<code>http://flights.ctrip.com/booking/&lt;起飞城市三字码&gt;-&lt;降落城市三字码&gt;-day-1.html?DDate1=&lt;起飞日期&gt;</code></p>
+<p><strong>拍脑袋想出来的方法一：</strong>直接通过页面url获取html代码，然后对html进行解析，获取到所需元素。</p>
+<p>-&gt; 要用xpath一层层分析网页元素，一层层解析下去，好麻烦啊！</p>
+<p>-&gt; 机票价格是Ajax异步请求！页面html源码中没有这部分数据的！就算你有耐心用Xpath定位，也找不到哇！</p>
+<p><strong>拍脑袋想出来的方法二：</strong>利用selenium框架，通过webdriver操纵浏览器完成爬取</p>
+<p>-&gt; 可以解决方法一中动态页面获取不到源码的问题，用xpath可以定位到元素了。</p>
+<p>-&gt; 可是，要是想看每个航班下所有票价信息的话，还需要点N次“订票”按钮，好麻烦呀！</p>
+<p>-&gt; 我用selenium尝试了一下，发现如果这个航线下的航班很多，滚动条不往下拉是不会把后面的航班加载出来的呀！这可咋整呀我无法预判这条航线下有多少航班呀。每条航线都拖动滚动条3次？5次？10次？太傻了！</p>
+<p>……出于以上种种原因</p>
+<p><strong>可以用的方法三：</strong>我选择直接利用ajax请求接口，模拟请求，获取json数据</p>
+<h2 id="Step1-找到API的地址"><a href="#Step1-找到API的地址" class="headerlink" title="Step1. 找到API的地址"></a>Step1. 找到API的地址</h2><p>打开Chrome浏览器的开发者模式，然后重新搜索一条航线。<br>开发者模式 -&gt; Networks -&gt; XHR里面有一个耗时格外长的请求！</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-d30df58bac9e9845.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>估计就是你了！点开看一下Query String，嗯是航线信息，的确就是这个请求。获取这个请求的地址，也就是Request URL。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-ae359dd92bc390b4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>把Request URL后面这一大串复制出来，整理一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">request_url = &apos;http://flights.ctrip.com/domesticsearch/search/SearchFirstRouteFlights?&apos; \</div><div class="line">                  + &apos;DCity1=&apos; + dcity \       # 起飞城市三字码</div><div class="line">                  + &apos;&amp;ACity1=&apos; + acity \     # 降落城市三字码</div><div class="line">                  + &apos;&amp;SearchType=S&apos; \</div><div class="line">                  + &apos;&amp;DDate1=&apos; + ddate \    # 起飞日期</div><div class="line">                  + &apos;&amp;IsNearAirportRecommond=0&apos; \</div><div class="line">                  + &apos;&amp;LogToken=8428f186c3504a6ea71158b344a502f5&apos; \</div><div class="line">                  + &apos;&amp;rk=0.1311117634227288233503&apos; \</div><div class="line">                  + &apos;&amp;CK=05F016D386A1975EFCF0F1240BA33457&apos; \</div><div class="line">                  + &apos;&amp;r=0.37113914798207880745716&apos;</div></pre></td></tr></table></figure></p>
+<p><code>request_url</code>后面有奇奇怪怪的四个字段，<code>LogToken</code>，<code>rk</code>，<code>CK</code>和<code>r</code>，但是我在页面源代码中只找到了<code>rk</code>的定义，没有找到另外两个值的来源。尝试了一下发现没有后面四个字段，也是可以可以获取到json数据的，因此直接忽略。</p>
+<p> 源码中找到的<code>rk</code>定义：<code>&amp;rk=&#39; + Math.random()*10+&#39;223600&#39;,&#39;0.31100000101726617620017&#39;);</code></p>
+<h2 id="Step2-模拟请求"><a href="#Step2-模拟请求" class="headerlink" title="Step2. 模拟请求"></a>Step2. 模拟请求</h2><p>在Chrome中的Request Headers可以看到这个请求头有以下信息：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-5c1a07ecf5eb04da.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>一般情况下模拟请求头首先要做的就是设置用户代理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ctrip_header = &#123;&apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36&apos;&#125;</div></pre></td></tr></table></figure></p>
+<p>有了用户代理之后，我们尝试模拟请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"># coding:utf-8</div><div class="line">import urllib2</div><div class="line"></div><div class="line"></div><div class="line">ctrip_header = &#123;&apos;User-Agent&apos;:</div><div class="line">                    &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36&apos;&#125;</div><div class="line"></div><div class="line">def search_flight(dcity, acity, ddate):</div><div class="line">    request_url = &apos;http://flights.ctrip.com/domesticsearch/search/SearchFirstRouteFlights?&apos; \</div><div class="line">                + &apos;DCity1=&apos; + dcity \</div><div class="line">                + &apos;&amp;ACity1=&apos; + acity \</div><div class="line">                + &apos;&amp;SearchType=S&apos; \</div><div class="line">                + &apos;&amp;DDate1=&apos; + ddate</div><div class="line">    request = urllib2.Request(request_url, headers=ctrip_header)</div><div class="line">    response = urllib2.urlopen(request)</div><div class="line">    return_json = response.read()</div><div class="line">    print return_json</div><div class="line"></div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    search_flight(&apos;TAO&apos;, &apos;SJW&apos;, &apos;2017-10-17&apos;)</div></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="http://upload-images.jianshu.io/upload_images/3851306-7d3764957dcabc95.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>发现返回的json当中并没有想要的数据，这可能是我们请求的过程中缺少了某些信息导致的。<br>查看Request Headers中，除了User-Agent以外还有很多其他的字段，尝试将这些字段加入<code>ctrip_header</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"># coding:utf-8</div><div class="line">import urllib2</div><div class="line"></div><div class="line"></div><div class="line">ctrip_header = &#123;&apos;User-Agent&apos;:</div><div class="line">                    &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36&apos;,</div><div class="line">                &apos;Host&apos;: &apos;flights.ctrip.com&apos;,</div><div class="line">                &apos;Referer&apos;: &apos;http://flights.ctrip.com/booking/TAO-SJW-day-1.html?DDate1=2017-10-16&apos;&#125;</div><div class="line"></div><div class="line"></div><div class="line">def search_flight(dcity, acity, ddate):</div><div class="line">    request_url = &apos;http://flights.ctrip.com/domesticsearch/search/SearchFirstRouteFlights?&apos; \</div><div class="line">                + &apos;DCity1=&apos; + dcity \</div><div class="line">                + &apos;&amp;ACity1=&apos; + acity \</div><div class="line">                + &apos;&amp;SearchType=S&apos; \</div><div class="line">                + &apos;&amp;DDate1=&apos; + ddate</div><div class="line">    request = urllib2.Request(request_url, headers=ctrip_header)</div><div class="line">    response = urllib2.urlopen(request)</div><div class="line">    return_json = response.read()</div><div class="line">    print return_json</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    search_flight(&apos;TAO&apos;, &apos;SJW&apos;, &apos;2017-10-17&apos;)</div></pre></td></tr></table></figure>
+<p>运行结果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-e527f0dae85058a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>成功了！我本以为需要有Cookies才能请求成功的！<br>还好不需要Cookies！我还不太会获取Cookies，如果一定需要的话，我只能从Chrome里强行复制一波……（捂脸逃，顺便求Cookies伪造的教学）</p>
+<h2 id="Step3-解析json数据"><a href="#Step3-解析json数据" class="headerlink" title="Step3. 解析json数据"></a>Step3. 解析json数据</h2><p>首先我们需要将刚刚请求到json数据转换为可读的格式，可以用<code>json.loads()</code>这个函数将json字符串转换为可读的字典。即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">return_data = json.loads(return_json, encoding=&apos;gbk&apos;)</div></pre></td></tr></table></figure>
+<p>注意前面运行结果可以看出，字符串存在显示不出来的情况，这是因为我使用的python2.7存在编码问题，需要进行编码转换，即<code>encoding=&#39;gbk&#39;</code></p>
+<h4 id="找到所需数据："><a href="#找到所需数据：" class="headerlink" title="找到所需数据："></a>找到所需数据：</h4><p>我们需要什么数据呢？</p>
+<p>所有的航班号，及每个航班号下对应的所有价格。</p>
+<p>刚刚我们看的是Headers里的信息，现在切到Preview里。Preview里的信息是格式化的返回json，在这里我们可以很清晰的找到我们需要的数据。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-2d22fd9ff5273fa4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>可以看到，<code>fis</code>是一个航班列表，每个都是一个json，包含航班信息，航班价格信息等等等<br>那么我们只需要提取fis列表中的一些有用的value值就好了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">flight_list = return_data[&apos;fis&apos;]       # 下挖到航班列表的结点</div><div class="line">flight_nums = len(flight_list)      # 航班数</div><div class="line">for i in range(flight_nums):</div><div class="line">    airline = flight_list[i][&apos;alc&apos;]         # 航空公司</div><div class="line">    flight_no = flight_list[i][&apos;fn&apos;]         # 航班号</div><div class="line">    price_list = [each[&apos;p&apos;] for each in flight_list[i][&apos;scs&apos;] if each[&apos;hotel&apos;] is None]     # 非飞宿产品价格</div></pre></td></tr></table></figure>
+<p>运行结果:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-ff0f0957ee6079f1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>完整代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"># coding:utf-8</div><div class="line">import urllib2</div><div class="line">import json</div><div class="line"></div><div class="line"></div><div class="line">ctrip_header = &#123;&apos;User-Agent&apos;:</div><div class="line">                    &apos;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.78 Safari/537.36&apos;,</div><div class="line">                &apos;Host&apos;: &apos;flights.ctrip.com&apos;,</div><div class="line">                &apos;Referer&apos;: &apos;http://flights.ctrip.com/booking/TAO-SJW-day-1.html?DDate1=2017-10-16&apos;&#125;</div><div class="line"></div><div class="line"></div><div class="line">def search_flight(dcity, acity, ddate):</div><div class="line">    request_url = &apos;http://flights.ctrip.com/domesticsearch/search/SearchFirstRouteFlights?&apos; \</div><div class="line">                + &apos;DCity1=&apos; + dcity \</div><div class="line">                + &apos;&amp;ACity1=&apos; + acity \</div><div class="line">                + &apos;&amp;SearchType=S&apos; \</div><div class="line">                + &apos;&amp;DDate1=&apos; + ddate</div><div class="line">    request = urllib2.Request(request_url, headers=ctrip_header)</div><div class="line">    response = urllib2.urlopen(request)</div><div class="line">    return_json = response.read()</div><div class="line">    # print return_json</div><div class="line">    return_data = json.loads(return_json, encoding=&apos;gbk&apos;)</div><div class="line"></div><div class="line">    flight_list = return_data[&apos;fis&apos;]</div><div class="line">    # print flight_list</div><div class="line">    flight_nums = len(flight_list)</div><div class="line">    print &apos;共有航班:&apos;, flight_nums, &apos;趟&apos;</div><div class="line">    for i in range(flight_nums):</div><div class="line">        airline = flight_list[i][&apos;alc&apos;]         # 航空公司</div><div class="line">        flight_no = flight_list[i][&apos;fn&apos;]         # 航班号</div><div class="line">        print &apos;携程&apos;, airline, flight_no,</div><div class="line">        price_list = [each[&apos;p&apos;] for each in flight_list[i][&apos;scs&apos;] if each[&apos;hotel&apos;] is None]     # 非飞宿产品价格</div><div class="line">        print price_list</div><div class="line">        </div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    search_flight(&apos;TAO&apos;, &apos;SJW&apos;, &apos;2017-10-17&apos;)</div></pre></td></tr></table></figure>
+<p><em>注：代码十分不规范，完全没写异常处理。近期我会努力纠正自己的习惯！</em></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/27/为什么机票有这么多价格/" rel="next" title="为什么机票有这么多价格">
+                <i class="fa fa-chevron-left"></i> 为什么机票有这么多价格
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="姬非" />
+          <p class="site-author-name" itemprop="name">姬非</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/56361688" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5553031113" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/aacd4f0c0e3c" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-jianshu"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step0-寻找一个合适的方法"><span class="nav-number">1.</span> <span class="nav-text">Step0. 寻找一个合适的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step1-找到API的地址"><span class="nav-number">2.</span> <span class="nav-text">Step1. 找到API的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step2-模拟请求"><span class="nav-number">3.</span> <span class="nav-text">Step2. 模拟请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step3-解析json数据"><span class="nav-number">4.</span> <span class="nav-text">Step3. 解析json数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#找到所需数据："><span class="nav-number">4.0.1.</span> <span class="nav-text">找到所需数据：</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">姬非</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="NCL," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Hello大家好~刚刚整理电脑里的东西，发现前些阵子写毕业论文的间歇自己瞎整理的一些文件。大气科学本来就是门很小众的学科，NCL这种只有我们气象人使用的软件，可以用来自学的材料更是少之又少。我本人大二的时候自学这个软件真的步！履！维！艰！正好大四写毕业论文又捡起来了它，在导师强迫症下使用了这个软件画图上的各种函数各种参数，3个月以来把网站都翻烂了。可惜工作没有从事本专业相关的岗位，所以恐怕以后再也">
+<meta name="keywords" content="NCL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NCL的安装">
+<meta property="og:url" content="http://www.jacquelinelee.live/2018/01/15/NCL的安装/index.html">
+<meta property="og:site_name" content="一笑雨噤声">
+<meta property="og:description" content="Hello大家好~刚刚整理电脑里的东西，发现前些阵子写毕业论文的间歇自己瞎整理的一些文件。大气科学本来就是门很小众的学科，NCL这种只有我们气象人使用的软件，可以用来自学的材料更是少之又少。我本人大二的时候自学这个软件真的步！履！维！艰！正好大四写毕业论文又捡起来了它，在导师强迫症下使用了这个软件画图上的各种函数各种参数，3个月以来把网站都翻烂了。可惜工作没有从事本专业相关的岗位，所以恐怕以后再也">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-2446568bbe1c5507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-e3b2cd9e7a732e0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-0c8764a364674153.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-0e0edd3bb50fe4e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-2a90b6920119036c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3851306-f5fb965ed14cfef9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-15T14:11:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NCL的安装">
+<meta name="twitter:description" content="Hello大家好~刚刚整理电脑里的东西，发现前些阵子写毕业论文的间歇自己瞎整理的一些文件。大气科学本来就是门很小众的学科，NCL这种只有我们气象人使用的软件，可以用来自学的材料更是少之又少。我本人大二的时候自学这个软件真的步！履！维！艰！正好大四写毕业论文又捡起来了它，在导师强迫症下使用了这个软件画图上的各种函数各种参数，3个月以来把网站都翻烂了。可惜工作没有从事本专业相关的岗位，所以恐怕以后再也">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3851306-2446568bbe1c5507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.jacquelinelee.live/2018/01/15/NCL的安装/"/>
+
+
+
+
+
+  <title>NCL的安装 | 一笑雨噤声</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">一笑雨噤声</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">正在撒丫子跑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.jacquelinelee.live/2018/01/15/NCL的安装/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="姬非">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="一笑雨噤声">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NCL的安装</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T21:28:42+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NCL/" itemprop="url" rel="index">
+                    <span itemprop="name">NCL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Hello大家好~刚刚整理电脑里的东西，发现前些阵子写毕业论文的间歇自己瞎整理的一些文件。<br>大气科学本来就是门很小众的学科，NCL这种只有我们气象人使用的软件，可以用来自学的材料更是少之又少。我本人大二的时候自学这个软件真的步！履！维！艰！正好大四写毕业论文又捡起来了它，在导师强迫症下使用了这个软件画图上的各种函数各种参数，3个月以来把网站都翻烂了。可惜工作没有从事本专业相关的岗位，所以恐怕以后再也不会用啦！趁着现在还没忘光，希望能整理出一些学习思路和主要知识点，能让大气科学的学弟学妹们更容易上手这个软件~</p>
+<h1 id="NCL简介"><a href="#NCL简介" class="headerlink" title="NCL简介"></a>NCL简介</h1><hr>
+<p>想学NCL，首先你得知道NCL是个啥玩意儿？</p>
+<blockquote>
+<p>NCL (NCAR Command Language) 是一款专为大气科学设计的数据分析和可视化程序设计语言。</p>
+<p>官方网站： <a href="http://www.ncl.ucar.edu" target="_blank" rel="external">http://www.ncl.ucar.edu</a></p>
+</blockquote>
+<p>好的嘛，以上是很官方的解释。个人理解：NCL = 画图软件</p>
+<hr>
+<p>NCL有什么好处？我们为什么要学习NCL呢？</p>
+<p>就目前来讲，我们学气象使用的画图工具主要有三种，分别是Matlab，GrADs和NCL。</p>
+<p>Matlab的好处很明显，使用的人多，相对教程也比较多，但它并不是气象专用的，如果要叠加地图之类的会比较麻烦，而且，占！用！空！间！非！常！大！一个Matlab完全安装下来十几个G的空间还是需要的，对电脑来说是个相当高的负荷。</p>
+<p>而GrADs和NCL就不一样了，占用空间非常小，计算和出图速度也会快很多。为什么我建议大家一开始就学习NCL而不是grADs？原因一，NCL画出来的图好看，GrADs巨丑！原因二，老师们爱用NCL，而且刚开始学习GrADs的同学到后来(毕业论文)还是要学NCL，摊手，我一开始就学的NCL诶嘿嘿嘿，虽然是因为GrADs没有mac版本才选择的NCL。原因三，服务器是Linux系统，只有装NCL。</p>
+<p>（刚刚查了一下，貌似GrADs也有linux和mac版本？？？）</p>
+<p>NCL画出的图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-2446568bbe1c5507.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fig.1.NCL (图片来源于我的本科毕业论文)
+"></p>
+<p>GrADs画出的图：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-e3b2cd9e7a732e0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fig.2.grads (图片来源于网络)"></p>
+<hr>
+<p>NCL大概要怎么用呢？安装好以后，打开电脑的Terminal/终端/Shell。</p>
+<p>然后，主要有两种使用NCL的方式。</p>
+<p>一种是交互模式：交互模式类似于使用Matlab的命令行，需要用户一行命令输入进去，回车，执行，再输入一行，回车，执行。</p>
+<p>交互模式的使用：输入ncl，按回车即可进入NCL交互模式。<br>如果出现如下提示即成功。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-0c8764a364674153.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fig.3.NCL交互模式"></p>
+<p>一种是Batch模式：Batch模式就是把NCL代码全写好存在.ncl的文件中，然后一次性执行整个文件中的代码。</p>
+<p>Batch模式的使用：输入ncl + [<strong>相对</strong>/<strong>绝对</strong>路径] + [NCL程序名(.ncl结尾)]</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-0e0edd3bb50fe4e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fig.4.NCL Batch模式"></p>
+<hr>
+<h1 id="NCL的安装"><a href="#NCL的安装" class="headerlink" title="NCL的安装"></a>NCL的安装</h1><ul>
+<li><p>NCL的安装主要分为以下几个步骤:</p>
+<ol>
+<li>安装XQuartz</li>
+<li>安装gcc和gfortran</li>
+<li>安装NCL</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-安装XQuartz"><a href="#1-安装XQuartz" class="headerlink" title="1.安装XQuartz"></a>1.安装XQuartz</h2><ul>
+<li><p>XQuartz是什么？</p>
+<blockquote>
+<p>简单来说就是一个图形系统。XQuartz是X Window系统，可以让你的屏幕显示图形，是X11软件的开源版本，可以在OS X系统上运行。</p>
+</blockquote>
+<p>  我们是要画图的嘛，没有这个图形系统就画不出图，就这么简单粗暴的解释hhhhh</p>
+</li>
+<li><p>如何安装XQuartz？</p>
+<blockquote>
+<p>一般来说OS X系统安装盘里自带了X11软件，但是根据度娘的说法，从10.8版本以后都不在安装盘提供了。所以，不是所有人都要手动安装XQuartz。</p>
+</blockquote>
+<p>  XQuartz安装文件下载地址: <a href="https://www.xquartz.org/" target="_blank" rel="external">www.xquartz.org</a></p>
+<p>  .dmg文件，如果告诉我不会安装你就去面壁吧！安装好了就可以把安装包删了呦~</p>
+</li>
+<li><p>如何检查你的电脑上是否有安装X11软件？</p>
+<p>  可以打开Terminal输入:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ng4ex xy01n -clean</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p> 如果电脑上已有X11软件，此时会自动启动一个画着XY图的窗口。</p>
+<p> 如果没有窗口弹出或者出现报错，你需要重新下载并安装XQuartz。地址见上条。</p>
+<h2 id="2-安装gcc和gfortran"><a href="#2-安装gcc和gfortran" class="headerlink" title="2.安装gcc和gfortran"></a>2.安装gcc和gfortran</h2><ul>
+<li><p>为啥要安装gcc,gfortran?</p>
+<blockquote>
+<p>NCL的执行有时候依赖于gcc和gfortran。说白了就是NCL是由C语言和Fortran语言编写的，需要有这两种语言的编译器，所以需要gcc和gfortran。</p>
+</blockquote>
+</li>
+<li><p>如何检查电脑上是否有安装gcc和gfortran?</p>
+<p>  打开Terminal输入:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">which gcc</div><div class="line">which gfortran</div><div class="line">gcc --version       // 查看gcc版本</div><div class="line">gfortran --version  // 查看gfortran版本</div></pre></td></tr></table></figure>
+<p>  下图为已安装gcc和gfortran的结果：</p>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/3851306-2a90b6920119036c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fig.5.已安装GCC/GFortran"></p>
+<ul>
+<li><p>如何安装？</p>
+<p>  什么？？你都要开始用NCL了我不信你没用过gcc和gfortran！<br>  gcc和gfortran下载地址：<a href="http://hpc.sourceforge.net/" target="_blank" rel="external">http://hpc.sourceforge.net/</a></p>
+</li>
+</ul>
+<h2 id="3-下载和安装NCL"><a href="#3-下载和安装NCL" class="headerlink" title="3.下载和安装NCL"></a>3.下载和安装NCL</h2><p>在这一步中，你需要:</p>
+<ol>
+<li>选择合适自己系统的NCL文件并下载安装</li>
+<li>设置环境变量，使其指向你的NCL安装路径</li>
+<li>测试NCL是否安装成功</li>
+</ol>
+<ul>
+<li><p>如何选择合适的NCL文件？</p>
+<p>  请打开Terminal并输入：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sw_vers -productVersion</div><div class="line">uname -m</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>结果如:
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/3851306-f5fb965ed14cfef9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Fig.6.查看所需版本"></p>
+<p>意味着你需要下载: <code>ncl_ncarg-6.4.0.MacOS_10.11_64bit_gnu540.tar.gz</code></p>
+<p>所有的NCL二进制源文件都在 Earth System Grid <a href="https://www.earthsystemgrid.org/dataset/ncl.html" target="_blank" rel="external">https://www.earthsystemgrid.org/dataset/ncl.html</a>中列出。</p>
+<p>目前最新的版本是 <a href="https://www.earthsystemgrid.org/dataset/ncl.640.html" target="_blank" rel="external">NCL 6.4.0 binaries</a></p>
+<p>找到你需要的版本，下载吧~</p>
+<ul>
+<li><p>如何安装NCL二进制文件？</p>
+<p>  首先需要确定的是，你想把文件安装在哪里。</p>
+<p>  比如你想安装在<code>/usr/local/ncl-6.4.0</code>这个文件夹中:</p>
+<p>  那么首先你需要创建这个文件夹:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir /usr/local/ncl-6.4.0			// mkdir 创建目录</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<pre><code>然后将安装文件解压缩到目标文件夹中，注意当前路径问题:
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// tar -zxf &lt;安装文件&gt; -C &lt;想要安装到的目录&gt;</div><div class="line">tar -zxf ~/ncl_ncarg-6.4.0-MacOS_10.12_64bit_gnu530.tar.gz -C /usr/local/ncl-6.4.0</div></pre></td></tr></table></figure>
+</code></pre><ul>
+<li><p>如何设置环境变量，使其指向NCL路径？</p>
+<p>  打开Terminal，输入:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls -a ~/		// 显示home路径下所有隐藏文件目录</div></pre></td></tr></table></figure>
+<p>  你会看到一个名为<code>.bash_profile</code>的文件。打开这个文件(可利用命令<code>open .bash_profile</code>)，在文件最后加上以下两行命令:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">export NCARG_ROOT=/usr/local/ncl-6.4.0</div><div class="line">   export PATH=$NCARG_ROOT/bin:$PATH</div></pre></td></tr></table></figure>
+<p>  注意，其中第一行的<code>/usr/local/ncl-6.4.0</code>不是固定的，要看你上一步安装在哪里，记得替换！</p>
+<p>  修改后记得command+s保存，并重启Terminal使其生效。一定要记得重启！关掉！再重新打开！不然没有用！</p>
+<p>  Ok~环境变量修改好啦！</p>
+</li>
+<li><p>如何测试是否安装好？</p>
+<p>  再问一次，设置了环境变量以后，你的Terminal重启了嘛？重启了嘛？不重启的话，刚刚的设置没有生效，你会以为自己安装出现了问题，启动不了NCL哦~</p>
+<p>  重启后，输入:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ng4ex gsun01n -clean</div></pre></td></tr></table></figure>
+<p>  好啦~ 如果出现了图形界面，证明你已经安装成功！可以尽情”享受”美妙的NCL了~</p>
+<p>  <strong>如果仍有问题</strong>，建议你自己去官网上对照各种报错看一下~ 学会看软件的说明文档是一个程序猿/媛必备的素质，一边看还能提高英语能力呢！(嗯对我就是懒得继续写那些错误的解决方法了！)</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NCL/" rel="tag"># NCL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/11/Python爬虫——WuXiaWorld小说/" rel="next" title="Python爬虫——WuXiaWorld小说">
+                <i class="fa fa-chevron-left"></i> Python爬虫——WuXiaWorld小说
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/15/开始一个简单的NCL/" rel="prev" title="开始一个简单的NCL">
+                开始一个简单的NCL <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="姬非" />
+          <p class="site-author-name" itemprop="name">姬非</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://github.com/56361688" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                    
+                      GitHub
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5553031113" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                    
+                      微博
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/aacd4f0c0e3c" target="_blank" title="简书">
+                  
+                    <i class="fa fa-fw fa-jianshu"></i>
+                  
+                    
+                      简书
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NCL简介"><span class="nav-number">1.</span> <span class="nav-text">NCL简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NCL的安装"><span class="nav-number">2.</span> <span class="nav-text">NCL的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-安装XQuartz"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装XQuartz</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装gcc和gfortran"><span class="nav-number">2.2.</span> <span class="nav-text">2.安装gcc和gfortran</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-下载和安装NCL"><span class="nav-number">2.3.</span> <span class="nav-text">3.下载和安装NCL</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 &mdash; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">姬非</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
